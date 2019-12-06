@@ -22,7 +22,6 @@ app.get("/hello", (req, res) => {
 });
 const Schema = mongoose.Schema;
 
-// eslint-disable-next-line no-unused-vars
 const TerminalSchema = new Schema({
     _id: Schema.Types.ObjectId,
     bank: Schema.Types.ObjectId,
@@ -45,15 +44,25 @@ const BankShema = new Schema({
     deleted_at: {type: String, required: false},
 });
 const Banks = mongoose.model("banks", BankShema, "banks");
+const Terminals = mongoose.model("terminals", TerminalSchema, "terminals");
 
 app.get("/banks", (req, res) => {
     mongoose.connect("mongodb://dams:dams@mongo/trouvkash", {
         useNewUrlParser: true,
         useUnifiedTopology: true,
     });
-    // eslint-disable-next-line no-shadow,array-callback-return
-    // eslint-disable-next-line no-shadow,array-callback-return,no-unused-vars
+    // eslint-disable-next-line array-callback-return
     Banks.find((err, data) => {
+        res.json(data);
+    });
+});
+app.get("/terminals", (req, res) => {
+    mongoose.connect("mongodb://dams:dams@mongo/trouvkash", {
+        useNewUrlParser: true,
+        useUnifiedTopology: true,
+    });
+    // eslint-disable-next-line array-callback-return
+    Terminals.find((err, data) => {
         res.json(data);
     });
 });
