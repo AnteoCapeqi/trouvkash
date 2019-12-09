@@ -47,7 +47,7 @@ typings/
 # Optional eslint cache
 .eslintcache
 
-# Optional REPL history
+# Optionmongodb+srv://dev:dev@mongoal REPL history
 .node_repl_history
 
 # Output of 'npm pack'

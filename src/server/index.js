@@ -22,17 +22,6 @@ app.get("/hello", (req, res) => {
 });
 const Schema = mongoose.Schema;
 
-const TerminalSchema = new Schema({
-    _id: Schema.Types.ObjectId,
-    bank: Schema.Types.ObjectId,
-    latitude: {type: Number, required: true},
-    longitude: {type: Number, required: true},
-    address: String,
-    created_at: {type: String, required: true},
-    updated_at: {type: String, required: true},
-    deleted_at: {type: String, required: false},
-});
-
 const BankShema = new Schema({
     country: Number,
     color: String,
@@ -43,28 +32,37 @@ const BankShema = new Schema({
     updated_at: String,
     deleted_at: {type: String, required: false},
 });
+
+const TerminalSchema = new Schema({
+    bank: {type: "ObjectId", ref: "banks"},
+    latitude: {type: Number, required: true},
+    longitude: {type: Number, required: true},
+    address: String,
+    created_at: {type: String, required: true},
+    updated_at: {type: String, required: true},
+    deleted_at: {type: String, required: false},
+});
+
 const Banks = mongoose.model("banks", BankShema, "banks");
 const Terminals = mongoose.model("terminals", TerminalSchema, "terminals");
 
-app.get("/banks", (req, res) => {
+app.get("/banks", async (req, res) => {
     mongoose.connect("mongodb://dams:dams@mongo/trouvkash", {
         useNewUrlParser: true,
         useUnifiedTopology: true,
     });
-    // eslint-disable-next-line array-callback-return
-    Banks.find((err, data) => {
-        res.json(data);
-    });
+
+    const banks = await Banks.find((err, data) => data);
+    res.json(banks);
 });
-app.get("/terminals", (req, res) => {
+app.get("/terminals", async (req, res) => {
     mongoose.connect("mongodb://dams:dams@mongo/trouvkash", {
         useNewUrlParser: true,
         useUnifiedTopology: true,
     });
-    // eslint-disable-next-line array-callback-return
-    Terminals.find((err, data) => {
-        res.json(data);
-    });
+
+    const terminal = await Terminals.find((err, data) => data);
+    res.json(terminal);
 });
 
 app.listen(APP_PORT, () =>
