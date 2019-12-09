@@ -51,8 +51,8 @@ app.get("/banks", async (req, res) => {
         useNewUrlParser: true,
         useUnifiedTopology: true,
     });
-
     const banks = await Banks.find((err, data) => data);
+    mongoose.disconnect();
     res.json(banks);
 });
 app.get("/terminals", async (req, res) => {
