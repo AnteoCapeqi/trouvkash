@@ -1,9 +1,15 @@
-import * as React from "react";
+import React from "react";
+import axios from "axios";
 
-const terminals = () => (
-    <section>
-        <h1>Hello</h1>
-    </section>
+export default function Terminals() {
+return (
+axios.get("/terminals").then(response => {
+console.log(response.data);
+}),
+err => {
+console.log(err);
+}
 );
+}
 
-export default terminals;
+export default Terminals;
