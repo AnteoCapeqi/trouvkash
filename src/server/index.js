@@ -61,8 +61,24 @@ app.get("/terminals", async (req, res) => {
         useUnifiedTopology: true,
     });
 
-    const terminal = await Terminals.find((err, data) => data);
+    const terminal = await Terminals.find((err, data) => data)
+        .limit(100)
+        .exec();
     res.json(terminal);
+});
+
+app.get("/banks/:id", async (req, res) => {
+    mongoose.connect("mongodb://dams:dams@mongo/trouvkash", {
+        useNewUrlParser: true,
+        useUnifiedTopology: true,
+    });
+    const bank = await Banks.findById(req.params.id, (err, data) => {
+        if (err) {
+            return "oups erreur";
+        }
+        return data;
+    });
+    res.json(bank);
 });
 
 app.listen(APP_PORT, () =>
