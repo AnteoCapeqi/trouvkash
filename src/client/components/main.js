@@ -1,13 +1,12 @@
 import * as React from "react";
-import Terminals from "./terminals";
+import Banks from "./terminals";
+import Research from "./research";
 
-const Main = () => {
-
-return (
+const Main = () => (
     <section>
         <h1>Terminals</h1>
-        <Terminals />
+        <Banks />
+        <Research />
     </section>
-)
-};
+);
 export default Main;
