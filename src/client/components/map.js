@@ -5,6 +5,7 @@ import axios from "axios";
 function mapl() {
     const [position, setPosition] = useState([0, 0]);
     const [terminals, setTerminals] = useState([]);
+
     // eslint-disable-next-line no-shadow,no-unused-vars
     navigator.geolocation.getCurrentPosition(pos => {
         const tab = [];
@@ -12,11 +13,6 @@ function mapl() {
         tab[1] = pos.coords.longitude;
         setPosition(tab);
     });
-    const obj = {
-        id: 1,
-        position: [51.0569, 4.37117],
-        address: "mon adresse",
-    };
 
     useEffect(() => {
         axios.get("/terminals").then(res => {
@@ -24,20 +20,25 @@ function mapl() {
         });
     }, []);
 
-    const SearchSuggestions = elem => (
+    const afficheTerminaux = elem => (
         <Marker key={elem._id} position={[elem.latitude, elem.longitude]}>
             <Popup>{elem.address}</Popup>
         </Marker>
     );
+
+    const changepos = event => {
+        console.log(event.target.getCenter());
+    };
+
     return (
-        <Map center={position} zoom={13} id={"maps"}>
+        <Map onMoveEnd={changepos} center={position} zoom={10} id={"maps"}>
             <TileLayer
                 url={"https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"}
             />
             <Marker position={position}>
                 <Popup>{"Votre position"}</Popup>
             </Marker>
-            {terminals.map(elem => SearchSuggestions(elem))}
+            {terminals.map(elem => afficheTerminaux(elem))}
         </Map>
     );
 }
