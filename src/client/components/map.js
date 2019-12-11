@@ -1,4 +1,4 @@
-import React, {useState,useEffect} from "react";
+import React, {useState, useEffect} from "react";
 import {Map, Marker, Popup, TileLayer} from "react-leaflet";
 import axios from "axios";
 
@@ -16,7 +16,7 @@ function mapl() {
         id: 1,
         position: [51.0569, 4.37117],
         address: "mon adresse",
-    }
+    };
 
     useEffect(() => {
         axios.get("/terminals").then(res => {
@@ -25,7 +25,7 @@ function mapl() {
     }, []);
 
     const SearchSuggestions = elem => (
-        <Marker position={eleme.position}>
+        <Marker key={elem._id} position={[elem.latitude, elem.longitude]}>
             <Popup>{elem.address}</Popup>
         </Marker>
     );
@@ -34,9 +34,10 @@ function mapl() {
             <TileLayer
                 url={"https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"}
             />
-            <Marker position={obj.position}>
-                <Popup>{obj.address}</Popup>
+            <Marker position={position}>
+                <Popup>{"Votre position"}</Popup>
             </Marker>
+            {terminals.map(elem => SearchSuggestions(elem))}
         </Map>
     );
 }
