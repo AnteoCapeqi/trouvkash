@@ -7,7 +7,8 @@ export default class banks extends React.Component {
     };
 
     componentDidMount() {
-        axios.get(`/terminals`)
+        axios
+            .get(`/terminals`)
 
             .then(res => {
                 const banks = res.data;
