@@ -14,11 +14,20 @@ body{
         padding-top: 10px;
     }
     section{
+        #maps{
+            width: 400px;
+            height: 400px;
+            z-index: 2;
+        }
         width: 20%;
         height: auto;
         margin-left: 5px;
+<<<<<<< HEAD
        
       
+=======
+
+>>>>>>> e42c8eb74ce5ffa730994f498d7e30690747d345
         h1{
             background-color: rgb(8, 34, 13);
             margin: 0;
@@ -31,11 +40,11 @@ body{
             font-weight: bold;
             border-radius: 10px;
             box-shadow: 4px 4px 4px black;
-          
+
         }
         ul{
             padding: 0;
-            
+
             li{
                 height: auto;
                 background-color: rgb(255, 255, 255);
@@ -48,7 +57,6 @@ body{
                 box-shadow: 2px 2px 2px black;
             }
         }
-
         section{
             position: absolute;
             top: 100px;
@@ -64,9 +72,14 @@ body{
                         box-shadow: 0 2px 4px rgba(0,0,0,0.2), 0 -1px 0px rgba(0,0,0,0.02);
                         color: rgba(94, 89, 89, 0.527);
                     }
-                }    
+                }
             }
         }
     }
+<<<<<<< HEAD
     
 }
+=======
+
+}
+>>>>>>> e42c8eb74ce5ffa730994f498d7e30690747d345
