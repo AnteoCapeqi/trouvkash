@@ -8,7 +8,7 @@ function Research () {
                     
                    
                 <form action="" className="formulaire">
-                    <input className="champ" type="input" ></input>
+                    <input className="champ" type="input" placeholder="Chercher le terminal lol" ></input>
                     
                 </form>
             </div>
