@@ -36,7 +36,7 @@ function mapl() {
                 url={"https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"}
             />
             <Marker position={position}>
-                <Popup>{"Votre position"}</Popup>
+                <Popup>{"je suis ici"}</Popup>
             </Marker>
             {terminals.map(elem => afficheTerminaux(elem))}
         </Map>
