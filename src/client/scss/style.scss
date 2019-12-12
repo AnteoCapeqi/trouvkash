@@ -17,6 +17,7 @@ body{
         width: 20%;
         height: auto;
         margin-left: 5px;
+       
       
         h1{
             background-color: rgb(8, 34, 13);
@@ -57,6 +58,7 @@ body{
                     input{
                         height: 40px;
                         width: 80%;
+                        padding-left: 30px;
                         border-radius: 10px;
                         border: 1px solid #DADCE0;
                         box-shadow: 0 2px 4px rgba(0,0,0,0.2), 0 -1px 0px rgba(0,0,0,0.02);
@@ -66,4 +68,5 @@ body{
             }
         }
     }
+    
 }
