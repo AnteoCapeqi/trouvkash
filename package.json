@@ -52,6 +52,7 @@
     "axios": "^0.19.0",
     "css-loader": "^3.2.1",
     "express": "^4.17.1",
+    "geopoint": "^1.0.1",
     "leaflet": "^1.6.0",
     "mongodb": "^3.3.5",
     "mongoose": "^5.7.13",

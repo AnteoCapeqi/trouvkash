@@ -8,6 +8,7 @@
 
 import express from "express";
 import path from "path";
+const GeoPoint = require("geopoint");
 
 const {APP_PORT} = process.env;
 
@@ -16,10 +17,6 @@ const mongoose = require("mongoose");
 mongoose.set("debug", true);
 app.use(express.static(path.resolve(__dirname, "../../bin/client")));
 
-app.get("/hello", (req, res) => {
-    console.log(`ℹ️  (${req.method.toUpperCase()}) ${req.url}`);
-    res.send("Hello, World!");
-});
 const Schema = mongoose.Schema;
 
 const BankShema = new Schema({
@@ -80,6 +77,27 @@ app.get("/banks/:id", async (req, res) => {
     });
     res.json(bank);
 });
+
+const getFilterTerminals = async () => {
+    mongoose.connect("mongodb://dams:dams@mongo/trouvkash", {
+        useNewUrlParser: true,
+        useUnifiedTopology: true,
+    });
+    const point = new GeoPoint(51.0569, 4.37117);
+    const terminal = await Terminals.find((err, data) => data).exec();
+    const filterTermonals = terminal.filter(elem => {
+        const geo = new GeoPoint(elem.latitude, elem.longitude);
+        const d = geo.distanceTo(point, true);
+        if (d < 5) {
+            return true;
+        }
+        return false;
+    });
+
+    console.log(filterTermonals.length);
+};
+
+getFilterTerminals();
 
 app.listen(APP_PORT, () =>
     console.log(`🚀 Server is listening on port ${APP_PORT}.`),
