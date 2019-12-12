@@ -8,8 +8,8 @@ import Mapl from "./map";
 const Main = () => (
     <section>
         <h1>Terminals</h1>
-        <Banks />
-        <Research />
+       {/* <Banks />
+        <Research />*/}
         <Mapl />
     </section>
 );

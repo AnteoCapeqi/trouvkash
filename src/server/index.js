@@ -43,6 +43,25 @@ const TerminalSchema = new Schema({
 const Banks = mongoose.model("banks", BankShema, "banks");
 const Terminals = mongoose.model("terminals", TerminalSchema, "terminals");
 
+const getFilterTerminals = async (longitude, latitude) => {
+    mongoose.connect("mongodb://dams:dams@mongo/trouvkash", {
+        useNewUrlParser: true,
+        useUnifiedTopology: true,
+    });
+    const point = new GeoPoint(latitude, longitude);
+    const terminal = await Terminals.find((err, data) => data).exec();
+    mongoose.disconnect();
+    const filterTermonals = terminal.filter(elem => {
+        const geo = new GeoPoint(elem.latitude, elem.longitude);
+        const d = geo.distanceTo(point, true);
+        if (d < 3) {
+            return true;
+        }
+        return false;
+    });
+    return filterTermonals;
+};
+
 app.get("/banks", async (req, res) => {
     mongoose.connect("mongodb://dams:dams@mongo/trouvkash", {
         useNewUrlParser: true,
@@ -57,10 +76,13 @@ app.get("/terminals", async (req, res) => {
         useNewUrlParser: true,
         useUnifiedTopology: true,
     });
-
-    const terminal = await Terminals.find((err, data) => data)
-        .limit(100)
-        .exec();
+    const longitude = Number(req.query.longitude);
+    const latitude = Number(req.query.latitude);
+    let terminal = null;
+    // eslint-disable-next-line eqeqeq,no-undefined,use-isnan
+    if (!isNaN(latitude) && !isNaN(longitude)) {
+        terminal = await getFilterTerminals(longitude, latitude);
+    }
     res.json(terminal);
 });
 
@@ -75,28 +97,9 @@ app.get("/banks/:id", async (req, res) => {
         }
         return data;
     });
+    mongoose.disconnect();
     res.json(bank);
 });
-
-const getFilterTerminals = async () => {
-    mongoose.connect("mongodb://dams:dams@mongo/trouvkash", {
-        useNewUrlParser: true,
-        useUnifiedTopology: true,
-    });
-    const point = new GeoPoint(51.0569, 4.37117);
-    const terminal = await Terminals.find((err, data) => data).exec();
-    const filterTermonals = terminal.filter(elem => {
-        const geo = new GeoPoint(elem.latitude, elem.longitude);
-        const d = geo.distanceTo(point, true);
-        if (d < 5) {
-            return true;
-        }
-        return false;
-    });
-
-    console.log(filterTermonals.length);
-};
-
 getFilterTerminals();
 
 app.listen(APP_PORT, () =>

@@ -14,10 +14,18 @@ function mapl() {
         setPosition(tab);
     });
 
+    const getTerminals = (longitude, latitude) => {
+        axios
+            .get(`/terminals?latitude=${latitude}&longitude=${longitude}`)
+            .then(res => {
+                if (res.data !== null) {
+                    setTerminals(res.data);
+                }
+            });
+    };
+
     useEffect(() => {
-        axios.get("/terminals").then(res => {
-            setTerminals(res.data);
-        });
+        getTerminals([position[1], position[0]]);
     }, []);
 
     const afficheTerminaux = elem => (
@@ -27,7 +35,8 @@ function mapl() {
     );
 
     const changepos = event => {
-        console.log(event.target.getCenter());
+        const newPoint = event.target.getCenter();
+        getTerminals(newPoint.lng, newPoint.lat);
     };
 
     return (
