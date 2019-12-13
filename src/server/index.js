@@ -44,7 +44,7 @@ const Banks = mongoose.model("banks", BankShema, "banks");
 const Terminals = mongoose.model("terminals", TerminalSchema, "terminals");
 
 app.get("/banks", async (req, res) => {
-    mongoose.connect("mongodb://dams:dams@mongo/trouvkash", {
+    mongoose.connect("mongodb://Surya:dev@mongo/trouvkash", {
         useNewUrlParser: true,
         useUnifiedTopology: true,
     });
@@ -53,7 +53,7 @@ app.get("/banks", async (req, res) => {
     res.json(banks);
 });
 app.get("/terminals", async (req, res) => {
-    mongoose.connect("mongodb://dams:dams@mongo/trouvkash", {
+    mongoose.connect("mongodb://Surya:dev@mongo/trouvkash", {
         useNewUrlParser: true,
         useUnifiedTopology: true,
     });
@@ -65,7 +65,7 @@ app.get("/terminals", async (req, res) => {
 });
 
 app.get("/banks/:id", async (req, res) => {
-    mongoose.connect("mongodb://dams:dams@mongo/trouvkash", {
+    mongoose.connect("mongodb://Surya:dev@mongo/trouvkash", {
         useNewUrlParser: true,
         useUnifiedTopology: true,
     });
@@ -79,7 +79,7 @@ app.get("/banks/:id", async (req, res) => {
 });
 
 const getFilterTerminals = async () => {
-    mongoose.connect("mongodb://dams:dams@mongo/trouvkash", {
+    mongoose.connect("mongodb://Surya:dev@mongo/trouvkash", {
         useNewUrlParser: true,
         useUnifiedTopology: true,
     });

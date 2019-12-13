@@ -7,10 +7,16 @@ import Mapl from "./map";
 
 const Main = () => (
     <section>
-        <h1>Terminals</h1>
-        <Banks />
-        <Research />
-        <Mapl />
+        
+        <div>
+            <h1>Terminals</h1>
+            <Banks />
+            <Research />
+        </div>
+
+        <div>
+            <Mapl />
+        </div>
     </section>
 );
 export default Main;
