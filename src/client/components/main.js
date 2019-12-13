@@ -8,7 +8,7 @@ import Mapl from "./map";
 const Main = () => (
     <section>
         <h1>Terminals</h1>
-       {/* <Banks />
+        {/* <Banks />
         <Research />*/}
         <Mapl />
     </section>
