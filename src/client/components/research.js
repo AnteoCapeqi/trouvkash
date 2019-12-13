@@ -7,8 +7,8 @@ function Research() {
                 <form action={""} className={"formulaire"}>
                     <input
                         className={"champ"}
+                        placeholder={"    Search a terminals..."}
                         type={"input"}
-                        placeholder={"Chercher le terminal lol"}
                     />
                 </form>
             </div>

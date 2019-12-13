@@ -50,7 +50,7 @@ const getFilterTerminals = async (longitude, latitude) => {
     });
     const point = new GeoPoint(latitude, longitude);
     const terminal = await Terminals.find((err, data) => data).exec();
-    mongoose.disconnect();
+    await mongoose.disconnect();
     const filterTermonals = terminal.filter(elem => {
         const geo = new GeoPoint(elem.latitude, elem.longitude);
         const d = geo.distanceTo(point, true);
@@ -68,7 +68,7 @@ app.get("/banks", async (req, res) => {
         useUnifiedTopology: true,
     });
     const banks = await Banks.find((err, data) => data);
-    mongoose.disconnect();
+    await mongoose.disconnect();
     res.json(banks);
 });
 app.get("/terminals", async (req, res) => {
@@ -76,13 +76,17 @@ app.get("/terminals", async (req, res) => {
         useNewUrlParser: true,
         useUnifiedTopology: true,
     });
+    console.log("ici là");
     const longitude = Number(req.query.longitude);
     const latitude = Number(req.query.latitude);
+    console.log(latitude);
+    console.log(longitude);
     let terminal = null;
     // eslint-disable-next-line eqeqeq,no-undefined,use-isnan
     if (!isNaN(latitude) && !isNaN(longitude)) {
         terminal = await getFilterTerminals(longitude, latitude);
     }
+    console.log(terminal);
     res.json(terminal);
 });
 
@@ -97,10 +101,9 @@ app.get("/banks/:id", async (req, res) => {
         }
         return data;
     });
-    mongoose.disconnect();
+    await mongoose.disconnect();
     res.json(bank);
 });
-getFilterTerminals();
 
 app.listen(APP_PORT, () =>
     console.log(`🚀 Server is listening on port ${APP_PORT}.`),

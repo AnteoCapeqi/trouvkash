@@ -6,14 +6,6 @@ function mapl() {
     const [position, setPosition] = useState([0, 0]);
     const [terminals, setTerminals] = useState([]);
 
-    // eslint-disable-next-line no-shadow,no-unused-vars
-    navigator.geolocation.getCurrentPosition(pos => {
-        const tab = [];
-        tab[0] = pos.coords.latitude;
-        tab[1] = pos.coords.longitude;
-        setPosition(tab);
-    });
-
     const getTerminals = (longitude, latitude) => {
         axios
             .get(`/terminals?latitude=${latitude}&longitude=${longitude}`)
@@ -25,6 +17,12 @@ function mapl() {
     };
 
     useEffect(() => {
+        navigator.geolocation.getCurrentPosition(pos => {
+            const tab = [];
+            tab[0] = pos.coords.latitude;
+            tab[1] = pos.coords.longitude;
+            setPosition(tab);
+        });
         getTerminals([position[1], position[0]]);
     }, []);
 
