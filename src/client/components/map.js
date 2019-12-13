@@ -26,12 +26,6 @@ function mapl() {
         getTerminals([position[1], position[0]]);
     }, []);
 
-    const afficheTerminaux = elem => (
-        <Marker key={elem._id} position={[elem.latitude, elem.longitude]}>
-            <Popup>{elem.address}</Popup>
-        </Marker>
-    );
-
     const changepos = event => {
         const newPoint = event.target.getCenter();
         getTerminals(newPoint.lng, newPoint.lat);
@@ -45,7 +39,13 @@ function mapl() {
             <Marker position={position}>
                 <Popup>{"je suis ici"}</Popup>
             </Marker>
-            {terminals.map(elem => afficheTerminaux(elem))}
+            {terminals.map(elem => (
+                <Marker
+                    key={elem._id}
+                    position={[elem.latitude, elem.longitude]}>
+                    <Popup>{elem.address}</Popup>
+                </Marker>
+            ))}
         </Map>
     );
 }

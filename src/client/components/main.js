@@ -1,8 +1,6 @@
 import React, {useState, useEffect} from "react";
 
 import Banks from "./terminals";
-import Research from "./research";
-
 import Mapl from "./map";
 import axios from "axios";
 
@@ -30,7 +28,6 @@ const Main = () => {
         });
     }, []);
 
-
     useEffect(() => {
         getTerminals(position[1], position[0]);
     }, [position]);
@@ -38,9 +35,8 @@ const Main = () => {
     return (
         <section>
             <div>
-                <h1>Terminals</h1>
+                <h1>{"Terminals"}</h1>
                 <Banks terminals={terminals} />
-                {/*<Research />*/}
             </div>
 
             <div>
